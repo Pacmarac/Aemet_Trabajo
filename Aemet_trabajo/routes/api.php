@@ -8,4 +8,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/mostrar',[StatsController::class, 'recolectaStat']); 
+Route::get('/recolectaInv',[StatsController::class, 'recolectaInv']); 
+
+Route::get('/datos',[StatsController::class, 'recolectaStat']); 
