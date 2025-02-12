@@ -11,3 +11,5 @@ Route::get('/user', function (Request $request) {
 Route::get('/recolectaInv',[StatsController::class, 'recolectaInv']); 
 
 Route::get('/datos',[StatsController::class, 'recolectaStat']); 
+
+Route::get('/prueba',[StatsController::class, 'almacenaStat']); 
