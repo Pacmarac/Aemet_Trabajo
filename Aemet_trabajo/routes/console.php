@@ -19,12 +19,7 @@ app()->singleton(Schedule::class, function ($app) {
         $controller->recolectaStat();
     })->everyTenHours();
 
-    return $schedule;
-});
-
-app()->singleton(Schedule::class, function ($app) {
-    $schedule = new Schedule;
-
+    // Programar la ejecución de almacenaStat cada semana
     $schedule->call(function () {
         $controller = new StatsController();
         $controller->almacenaStat();
@@ -32,3 +27,4 @@ app()->singleton(Schedule::class, function ($app) {
 
     return $schedule;
 });
+

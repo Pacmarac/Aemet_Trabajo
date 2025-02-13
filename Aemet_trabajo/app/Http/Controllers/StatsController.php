@@ -8,7 +8,6 @@ use App\Models\EstacionBd;
 use App\Models\EstacionInv;
 use Illuminate\Support\Facades\DB;
 use Http;
-use Illuminate\Support\Facades\Schedule;
 
 /**
  * Class StatsController
@@ -62,8 +61,6 @@ class StatsController extends Controller
                 $estacion->save();
             }
         }
-        // Se rellena la tabla de estaciones destino (EstacionBd)
-        rellenar_Estacionbd();
     }
 
     /**
@@ -78,7 +75,12 @@ class StatsController extends Controller
     public function recolectaStat()
     {
         // Se obtienen todas las estaciones registradas (id e idema)
-        $estaciones = EstacionInv::all('id', 'idema');
+        $innerjoin = EstacionInv::join('estacion_bd','estacion_bd.id','=','estacion_inv.id')
+        ->select('estacion_inv.id','estacion_inv.idema')
+        ->where('estacion_bd.estado','=',1)
+        ->getQuery()
+        ->get();
+        $estaciones = json_decode($innerjoin,true);
 
         foreach ($estaciones as $estacion) {
             // Construir la URL para obtener datos de observación de la estación
