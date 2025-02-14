@@ -40,7 +40,7 @@ class StatsController extends Controller
         ])->get($url)["datos"];
 
         // Se obtiene el contenido de la URL proporcionada en la respuesta
-        $datas = Http::get($response);
+        $datas = Http::get($response);//como se llama la funcion de aissa y david
         // Convertir la codificación a UTF-8 (desde ISO-8859-1)
         $datas = mb_convert_encoding($datas, "UTF-8", "ISO-8859-1");
         // Se decodifica el JSON a un array asociativo
@@ -249,17 +249,3 @@ function dmsToDecimal(string $dms): float
  *
  * @return void
  */
-function rellenar_Estacionbd()
-{
-    // Se obtienen todas las estaciones (solo el id) de EstacionInv
-    $estaciones = EstacionInv::all('id');
-    foreach ($estaciones as $estacion) {
-        $estacionBD = new EstacionBd();
-        // Si la estación aún no existe en EstacionBd, se inserta
-        if (EstacionBd::where('id', $estacion['id'])->doesntExist()) {
-            $estacionBD->id = $estacion['id'];
-            $estacionBD->estado = 1;
-            $estacionBD->save();
-        }
-    }
-}
