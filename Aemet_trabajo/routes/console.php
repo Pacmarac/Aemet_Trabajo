@@ -36,7 +36,7 @@ app()->singleton(Schedule::class, function ($app) {
     $schedule = new Schedule;
 
     /**
-     * Tarea programada: Ejecutar recolectaStat cada 10 horas.
+     * Tarea programada: Ejecutar recolectaStat cada 6 horas.
      *
      * Se utiliza el helper 'retry' para reintentar la ejecución hasta 5 veces en caso de fallo,
      * esperando 5000 milisegundos (5 segundos) entre cada intento.
@@ -47,7 +47,7 @@ app()->singleton(Schedule::class, function ($app) {
             $controller = new StatsController();
             $controller->recolectaStat();
         }, 5000);
-    })->everyTenHours();
+    })->everySixHours();
 
     /**
      * Tarea programada: Ejecutar almacenaStat cada sábado.
