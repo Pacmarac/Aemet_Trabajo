@@ -61,7 +61,7 @@ app()->singleton(Schedule::class, function ($app) {
             $controller = new StatsController();
             $controller->almacenaStat();
         }, 5000);
-    })->saturdays();
+    })->everySixHours();
 
     // Se retorna la instancia del scheduler configurado
     return $schedule;
